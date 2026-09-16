@@ -1,0 +1,75 @@
+; demo.spl — SPL 데모 스크립트
+; ==============================
+
+; --- 변수 ---
+prnt "=== Variables ==="
+varl pi    3.14
+varm cnt   0
+varm msg   "hello SPL"
+prnt pi
+prnt cnt
+prnt msg
+
+; --- 산술 ---
+prnt "=== Arithmetic ==="
+add_ x 10 20
+prnt x
+mul_ y x 3
+prnt y
+sub_ z y 10
+prnt z
+div_ w z 2
+prnt w
+mod_ r z 7
+prnt r
+
+; --- 대입 ---
+prnt "=== Assignment ==="
+set_ cnt 42
+prnt cnt
+
+; --- 조건문 ---
+prnt "=== Conditionals ==="
+if__ cnt > 10
+  prnt "cnt is big"
+elif cnt == 10
+  prnt "cnt is ten"
+else
+  prnt "cnt is small"
+end_
+
+; --- 반복문 ---
+prnt "=== Loop ==="
+varm i 1
+loop i <= 5
+  prnt i
+  add_ i i 1
+end_
+
+; --- 함수 ---
+prnt "=== Functions ==="
+func add(a b)
+  add_ r a b
+  retn r
+end_
+
+func square(n)
+  mul_ r n n
+  retn r
+end_
+
+varm result add(3 4)
+prnt result
+
+varm sq square(5)
+prnt sq
+
+; --- 1부터 10까지 합 ---
+prnt "=== Sum 1..10 ==="
+varm sum 0
+varm j   1
+loop j <= 10
+  add_ sum sum j
+  add_ j   j   1
+end_
+prnt sum

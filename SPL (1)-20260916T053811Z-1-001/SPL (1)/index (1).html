@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn SPL — Sparse Pragmatic Language</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0e14;
+            --surface: #161b22;
+            --accent: #3fb950;
+            --text: #adbac7;
+            --text-bright: #cdd9e5;
+            --border: #30363d;
+            --glass: rgba(22, 27, 34, 0.7);
+            --primary-gradient: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(88, 166, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 800;
+            color: var(--text-bright);
+            line-height: 1;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text);
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+        }
+
+        /* Content Sections */
+        section {
+            padding: 8rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--text-bright);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Card / Glass Design */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #58a6ff;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #0d1117;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+        }
+
+        .kw { color: #ff7b72; font-weight: 600; }
+        .var { color: #d2a8ff; }
+        .val { color: #a5d6ff; }
+        .com { color: #8b949e; font-style: italic; }
+        .str { color: #a5d6ff; }
+
+        /* Key Rule Highlight */
+        .highlight-box {
+            background: rgba(88, 166, 255, 0.1);
+            border-left: 4px solid #58a6ff;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 2rem 0;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--text-bright);
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">Version 0.1</div>
+        <h1>SPL</h1>
+        <p class="hero-desc">Sparse Pragmatic Language. <br>모든 키워드가 정확히 4바이트로 설계된 초고수밀도 미니멀리즘 언어.</p>
+        <div class="scroll-hint">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section id="basics">
+            <div class="section-header">
+                <h2>01. 핵심 규칙</h2>
+                <p>SPL은 극도의 일관성을 추구합니다.</p>
+            </div>
+            <div class="card">
+                <div class="highlight-box">
+                    <strong>4바이트 규칙:</strong> 모든 유효한 키워드는 줄의 시작 부분에서 정확히 4바이트를 차지해야 합니다.
+                </div>
+                <p>공백조차 규칙의 일부입니다. 예를 들어 <code>set</code>은 뒤에 공백 하나를 포함하여 <code>set_</code> 또는 <code>set </code>가 됩니다.</p>
+                <pre>
+<span class="com">; 이것은 주석입니다</span>
+<span class="kw">varl</span> pi   3.14  <span class="com">; 상수 선언</span>
+<span class="kw">varm</span> cnt  0     <span class="com">; 변수 선언</span>
+<span class="kw">prnt</span> <span class="str">"Hello"</span>    <span class="com">; 출력</span>
+                </pre>
+            </div>
+        </section>
+
+        <section id="variable">
+            <div class="section-header">
+                <h2>02. 변수와 대입</h2>
+            </div>
+            <div class="card">
+                <p>값을 저장하고 업데이트하는 방법입니다.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>키워드</th>
+                            <th>의미</th>
+                            <th>예시</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>varl</code></td>
+                            <td>불변 (Constant)</td>
+                            <td><code>varl pi 3.14</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>varm</code></td>
+                            <td>가변 (Mutable)</td>
+                            <td><code>varm x 10</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>set_</code></td>
+                            <td>값 업데이트</td>
+                            <td><code>set_ x 20</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="math">
+            <div class="section-header">
+                <h2>03. 계산하기</h2>
+            </div>
+            <div class="card">
+                <p>SPL의 산술 연산은 3개의 인자를 받습니다: <b>대상, 값A, 값B</b></p>
+                <pre>
+<span class="kw">add_</span> sum 10 20  <span class="com">; sum = 10 + 20</span>
+<span class="kw">mul_</span> res sum 2  <span class="com">; res = sum * 2</span>
+<span class="kw">sub_</span> x res 5    <span class="com">; x = res - 5</span>
+<span class="kw">prnt</span> x          <span class="com">; 55 출력</span>
+                </pre>
+            </div>
+        </section>
+
+        <section id="flow">
+            <div class="section-header">
+                <h2>04. 흐름 제어</h2>
+            </div>
+            <div class="card">
+                <p>조건문과 반복문 역시 4바이트 키워드를 사용합니다.</p>
+                <pre>
+<span class="kw">varm</span> i 1
+<span class="kw">loop</span> i <= 5
+  <span class="kw">prnt</span> i
+  <span class="kw">add_</span> i i 1
+<span class="kw">end_</span>
+                </pre>
+                <p><code>if__</code>, <code>elif</code>, <code>else</code> 블록은 항상 <code>end_</code>로 닫습니다.</p>
+            </div>
+        </section>
+
+        <section id="function">
+            <div class="section-header">
+                <h2>05. 함수</h2>
+            </div>
+            <div class="card">
+                <p>코드의 재사용성을 높입니다.</p>
+                <pre>
+<span class="kw">func</span> square(n)
+  <span class="kw">mul_</span> r n n
+  <span class="kw">retn</span> r
+<span class="kw">end_</span>
+
+<span class="kw">varm</span> result <span class="kw">call</span> square(5)
+<span class="kw">prnt</span> result     <span class="com">; 25 출력</span>
+                </pre>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SPL Project. Created for minimalists.</p>
+    </footer>
+
+    <script>
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

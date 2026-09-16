@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPL - The Next Quantum Paradigm Shift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-green: #39ff14;
+            --neon-yellow: #ffff00;
+            --dark-bg: #050510;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 0, 255, 0.1), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 255, 255, 0.1), transparent 25%);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Black Han Sans', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* 찌라시/네온 간판 스타일 헤더 */
+        .scam-header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 3px dashed var(--neon-pink);
+            position: relative;
+            animation: pulse-border 2s infinite;
+        }
+
+        .scam-header h1 {
+            font-size: 5rem;
+            color: #fff;
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                0 0 80px var(--neon-pink);
+            margin: 0;
+            line-height: 1.2;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        .scam-header p {
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            font-weight: 900;
+            text-shadow: 0 0 10px var(--neon-cyan);
+            margin-top: 1rem;
+        }
+
+        .buzzword-ticker {
+            background: var(--neon-yellow);
+            color: #000;
+            font-weight: 900;
+            padding: 10px 0;
+            font-size: 1.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+        }
+
+        .buzzword-ticker span {
+            display: inline-block;
+            animation: marquee 10s linear infinite;
+        }
+
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .highlight-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .card {
+            background: rgba(10, 10, 20, 0.8);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "🔥 10,000% ROI 🔥";
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            background: var(--neon-pink);
+            color: #fff;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-family: 'Black Han Sans';
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-top: 2rem;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+        }
+
+        .button-scam {
+            display: inline-block;
+            background: transparent;
+            color: var(--neon-yellow);
+            border: 3px solid var(--neon-yellow);
+            padding: 1.5rem 4rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Black Han Sans';
+            text-decoration: none;
+            text-shadow: 0 0 10px var(--neon-yellow);
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.4), inset 0 0 20px rgba(255, 255, 0, 0.4);
+            transition: all 0.1s;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: 2rem;
+            animation: button-vibrate 0.1s infinite;
+        }
+
+        .button-scam:hover {
+            background: var(--neon-yellow);
+            color: #000;
+            text-shadow: none;
+            box-shadow: 0 0 50px var(--neon-yellow);
+        }
+
+        /* Animations */
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink), 0 0 80px var(--neon-pink);
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: var(--neon-pink); }
+            50% { border-color: var(--neon-cyan); }
+            100% { border-color: var(--neon-pink); }
+        }
+
+        @keyframes button-vibrate {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        .jargon-list li {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .jargon-list li::before {
+            content: "💎";
+            position: absolute;
+            left: -10px;
+            top: 2px;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+            color: #666;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="buzzword-ticker">
+        <span>🚨 긴급: 실리콘밸리 VCs 100억 달러 투자 논의 중! 🚨 일론 머스크도 극찬한 초고효율 양자 토큰 압축 기술 🚨 남포동 지하 벙커에서 시작된 글로벌 혁명 🚨 내일이면 늦습니다! 지금 바로 탑승하세요! 🚨</span>
+    </div>
+
+    <header class="container scam-header">
+        <h1>SPL</h1>
+        <p>세계를 뒤흔들 단 하나의 하이퍼-퀀텀 언어</p>
+        <p style="font-size: 1.2rem; color: #fff; font-family: 'Noto Sans KR'; font-weight: normal; margin-top: 2rem;">
+            당신의 구닥다리 파이썬 코드? <span class="highlight-text">가져다 버리십시오.</span><br>
+            바야흐로 토큰 하나가 금값인 시대, SPL은 당신의 서버 코스트를 <br>
+            지하 10층 단란주점 테이블 밑바닥까지 깎아버립니다.
+        </p>
+    </header>
+
+    <div class="container">
+        
+        <div class="section">
+            <h2 style="color: var(--neon-pink); font-size: 3rem; text-align: center;">🔥 압도적 차이! 타사 언어와의 비교 🔥</h2>
+            <p style="text-align: center; font-size: 1.5rem;">"남들은 토큰을 불태울 때, 우리는 토큰을 창조합니다."</p>
+            
+            <div class="card" style="border-color: var(--neon-pink);">
+                <h3>🚨 충격! 파이썬의 토큰 누수 실태 🚨</h3>
+                <ul class="jargon-list">
+                    <li><span class="strikethrough">Python</span>: 의미 없는 공백과 길다란 키워드로 당신의 달러를 증발시킵니다.</li>
+                    <li><span class="strikethrough">JavaScript</span>: 중괄호 대괄호의 늪에서 헤어나오지 못합니다.</li>
+                    <li><span class="highlight-text">SPL (Sparse Pragmatic Language)</span>: 4-Byte 절대 압축! 모든 키워드는 4글자! 이것은 우주의 진리이자 실리콘밸리의 궁극적 해답입니다.</li>
+                </ul>
+                
+                <div class="chart-container chart-wrapper">
+                    <canvas id="scamChart1"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 style="color: var(--neon-cyan); font-size: 3rem; text-align: center;">💎 토큰 경제의 패러다임 시프트 💎</h2>
+            <p style="text-align: center; font-size: 1.5rem;">월스트리트가 주목하고 여의도가 경악한 바로 그 지표!</p>
+            
+            <div class="card" style="border-color: var(--neon-cyan);">
+                <h3>📈 기업가치 기하급수적 우상향 예측 📈</h3>
+                <p>SPL을 도입하는 순간, 당신의 AI 모델은 컨텍스트 윈도우의 제약에서 벗어납니다.<br>
+                남포동 뒷골목 찌라시보다 얇고, 강남 클럽 VIP룸의 불빛보다 화려하며, <br>
+                실리콘밸리의 유니콘들이 비밀리에 사용하는 바로 그 기술!</p>
+                
+                <div class="chart-container chart-wrapper" style="border-color: var(--neon-cyan);">
+                    <canvas id="scamChart2"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 style="color: var(--neon-yellow); font-size: 3rem; text-align: center;">💰 당신의 통장을 불려줄 수익률 최적화 💰</h2>
+            
+            <div class="card" style="border-color: var(--neon-yellow);">
+                <div class="chart-container chart-wrapper" style="height: 300px;">
+                    <canvas id="scamChart3"></canvas>
+                </div>
+                <h3 style="text-align: center; margin-top: 2rem; font-size: 2rem; color: var(--neon-yellow);">"도입 즉시 토큰 소모량 90% 증발!"</h3>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center;">
+            <h2 style="font-size: 4rem; text-shadow: 0 0 20px #fff;">시간이 없습니다!</h2>
+            <p style="font-size: 2rem; color: var(--neon-pink); font-weight: bold;">선착순 100명 한정, Private Seed Round 참여 기회!</p>
+            <p>(현재 99명 참여 완료, 단 1자리 남음)</p>
+            <a href="#" class="button-scam">🚨 지금 묻고 더블로 가기 🚨</a>
+            <p style="margin-top: 2rem; color: #666; font-size: 0.8rem;">*본 투자상품은 원금 손실을 극도로 보장하며, 남포동 김사장님도 이미 전재산을 박으셨습니다.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // 공통 차트 설정 (눈 아프고 현란하게)
+        Chart.defaults.color = '#ffffff';
+        Chart.defaults.font.family = "'Black Han Sans', sans-serif";
+        Chart.defaults.font.size = 16;
+
+        const neonGlowPlugin = {
+            id: 'neonGlow',
+            beforeDatasetsDraw: (chart) => {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.shadowColor = chart.data.datasets[0].borderColor || chart.data.datasets[0].backgroundColor[0];
+                ctx.shadowBlur = 15;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+            },
+            afterDatasetsDraw: (chart) => {
+                chart.ctx.restore();
+            }
+        };
+
+        // 1번 차트 : 타사 대비 압도적 비교 (막대)
+        const ctx1 = document.getElementById('scamChart1').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['토큰 낭비량 (Python)', '문법 복잡도 (C++)', '메모리 누수 (Java)', 'SPL의 압도적 효율!'],
+                datasets: [{
+                    label: '손실 파워 / 효율 지수',
+                    data: [1000, 850, 920, 10000],
+                    backgroundColor: [
+                        'rgba(255, 0, 0, 0.7)',
+                        'rgba(255, 100, 0, 0.7)',
+                        'rgba(200, 0, 0, 0.7)',
+                        '#39ff14' // 네온 그린 (SPL)
+                    ],
+                    borderColor: [
+                        '#ff0000',
+                        '#ff6600',
+                        '#cc0000',
+                        '#ffffff'
+                    ],
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutElastic'
+                }
+            },
+            plugins: [neonGlowPlugin]
+        });
+
+        // 2번 차트 : 로켓 우상향 (라인)
+        const ctx2 = document.getElementById('scamChart2').getContext('2d');
+        
+        // 데이터 생성 (기하급수적 성장)
+        const exponentialData = [];
+        for(let i=0; i<12; i++) exponentialData.push(Math.pow(2.5, i));
+
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'SPL 도입 후 기업가치 (조 단위)',
+                    data: exponentialData,
+                    borderColor: '#ff00ff', // 네온 핑크
+                    backgroundColor: 'rgba(255, 0, 255, 0.2)',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#00ffff',
+                    pointBorderColor: '#fff',
+                    pointRadius: 6,
+                    pointHoverRadius: 10,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { display: false }, // 단위가 너무 커서 숨김 처리하는 사기 수법 적용
+                    x: { grid: { color: 'rgba(255,255,255,0.1)' } }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' 조 달러 (To The Moon 🚀)';
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 3000,
+                }
+            },
+            plugins: [neonGlowPlugin]
+        });
+
+        // 3번 차트 : 토큰 점유율 (도넛)
+        const ctx3 = document.getElementById('scamChart3').getContext('2d');
+        new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels: ['Python이 낭비하는 잉여 토큰', 'JS의 불필요한 괄호들', 'SPL의 순수 엑기스 로직'],
+                datasets: [{
+                    data: [60, 39, 1],
+                    backgroundColor: [
+                        '#ff0000',
+                        '#ff9900',
+                        '#00ffff' // 네온 시안
+                    ],
+                    borderColor: '#050510',
+                    borderWidth: 5,
+                    hoverOffset: 20
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+    </script>
+</body>
+</html>
